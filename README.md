@@ -57,19 +57,126 @@ The core data structure consists of:
 - Easy to extend and modify
 - Minimal dependencies
 
+## Tech Stack
+
+- **Framework**: [Next.js 14](https://nextjs.org/) with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **Data Layer**: In-memory database (easily replaceable with Prisma/PostgreSQL)
+- **Deployment**: Vercel-ready (serverless)
+
 ## Getting Started
 
-*Documentation will be added as the project develops*
+### Prerequisites
+
+- Node.js 18+ installed
+- npm or yarn package manager
+
+### Installation
+
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd canitrack
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Run the development server:
+```bash
+npm run dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+### Building for Production
+
+```bash
+npm run build
+npm start
+```
+
+### Project Structure
+
+```
+canitrack/
+├── app/                    # Next.js App Router pages
+│   ├── api/               # API routes
+│   │   ├── races/        # Race endpoints
+│   │   └── teams/        # Team endpoints
+│   ├── races/            # Race pages
+│   ├── teams/            # Team pages
+│   ├── stats/            # Statistics page
+│   └── page.tsx          # Home page
+├── lib/                   # Shared utilities
+│   └── db/               # Database layer
+│       ├── types.ts      # TypeScript types
+│       ├── seed.ts       # Demo data
+│       └── database.ts   # Database functions
+└── prisma/               # Prisma schema (for future use)
+```
+
+## Features Implemented
+
+### ✅ Completed
+- [x] Core data models and database schema
+- [x] Race registration and management
+- [x] Participant profile system
+- [x] Performance tracking and analytics
+- [x] User interface
+- [x] API development
+- [x] Responsive design with dark mode support
+
+### Current Features
+
+1. **Home Page** - View all races with key statistics
+2. **Race Details** - See full race results, times, and rankings
+3. **Team Profiles** - View individual team statistics and race history
+4. **Statistics Dashboard** - Global leaderboards and performance insights
+5. **API Endpoints** - RESTful API for all data access
+
+## Demo Data
+
+The application comes with fictional demo data including:
+- 6 human-dog teams
+- 6 races across different locations
+- Multiple results with realistic times and rankings
+
+## Migrating to a Real Database
+
+The current in-memory database can be easily replaced with Prisma + PostgreSQL:
+
+1. Uncomment the Prisma schema in `prisma/schema.prisma`
+2. Install Prisma Client: `npm install @prisma/client`
+3. Set up your database URL in `.env`
+4. Run migrations: `npx prisma migrate dev`
+5. Replace imports in pages from `lib/db/database` to Prisma Client
+6. Deploy to a platform with PostgreSQL support (Vercel, Railway, etc.)
+
+## Deployment
+
+### Vercel (Recommended)
+
+1. Push your code to GitHub
+2. Import the project in [Vercel](https://vercel.com)
+3. Deploy with zero configuration
+
+The application is fully serverless-ready and optimized for Vercel deployment.
 
 ## Roadmap
 
-- [ ] Core data models and database schema
-- [ ] Race registration and management
-- [ ] Participant profile system
-- [ ] Performance tracking and analytics
-- [ ] User interface
-- [ ] API development
-- [ ] Deployment configuration
+### Future Enhancements
+- [ ] User authentication and authorization
+- [ ] Add/edit races and results functionality
+- [ ] Photo uploads for teams and races
+- [ ] Advanced filtering and search
+- [ ] Race registration system
+- [ ] Email notifications
+- [ ] Mobile app (React Native)
+- [ ] Integration with GPS tracking devices
 
 ## Contributing
 

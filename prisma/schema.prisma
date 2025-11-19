@@ -1,0 +1,83 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Human {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  age       Int
+  gender    String   // "M" or "F"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teams Team[]
+}
+
+model Dog {
+  id        String   @id @default(cuid())
+  name      String
+  breed     String
+  age       Int
+  gender    String   // "M" or "F"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  teams Team[]
+}
+
+model Team {
+  id        String   @id @default(cuid())
+  humanId   String
+  dogId     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  human   Human    @relation(fields: [humanId], references: [id])
+  dog     Dog      @relation(fields: [dogId], references: [id])
+  results Result[]
+
+  @@unique([humanId, dogId])
+}
+
+model Race {
+  id          String    @id @default(cuid())
+  name        String
+  date        DateTime
+  location    String
+  distance    Float     // in kilometers
+  elevationGain Float?  // in meters
+  courseType  String    // "trail", "road", "mixed"
+  weather     String?   // optional weather conditions
+  temperature Float?    // in Celsius
+  description String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  results Result[]
+}
+
+model Result {
+  id            String   @id @default(cuid())
+  raceId        String
+  teamId        String
+  timeSeconds   Int      // race time in seconds
+  position      Int?     // finishing position
+  categoryPosition Int?  // position in category
+  notes         String?  // additional notes
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  race Race @relation(fields: [raceId], references: [id])
+  team Team @relation(fields: [teamId], references: [id])
+
+  @@unique([raceId, teamId])
+}
