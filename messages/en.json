@@ -1,0 +1,85 @@
+{
+  "common": {
+    "backToHome": "← Back to Home",
+    "backToRaces": "← Back to Races",
+    "backToTeams": "← Back to Teams",
+    "viewResults": "View Results →",
+    "viewProfile": "View Profile →"
+  },
+  "nav": {
+    "home": "Home",
+    "teams": "Teams",
+    "races": "Races",
+    "stats": "Statistics"
+  },
+  "home": {
+    "title": "Canitrack",
+    "subtitle": "Track your canicross performance and compete with other teams",
+    "viewTeams": "View Teams",
+    "statistics": "Statistics",
+    "totalRaces": "Total Races",
+    "totalParticipants": "Total Participants",
+    "totalDistance": "Total Distance",
+    "upcomingRaces": "Upcoming & Recent Races",
+    "participants": "participants",
+    "distance": "Distance",
+    "elevation": "Elevation",
+    "weather": "Weather",
+    "date": "Date"
+  },
+  "races": {
+    "title": "Race Details",
+    "raceResults": "Race Results",
+    "position": "Position",
+    "team": "Team",
+    "dog": "Dog",
+    "time": "Time",
+    "pace": "Pace (min/km)",
+    "noResults": "No results available yet.",
+    "notes": "Notes",
+    "years": "years",
+    "courseTypes": {
+      "trail": "trail",
+      "road": "road",
+      "mixed": "mixed"
+    }
+  },
+  "teams": {
+    "title": "Canicross Teams",
+    "subtitle": "Browse all registered human-dog teams",
+    "teamProfile": "Team Profile",
+    "runner": "Runner",
+    "caninePartner": "Canine Partner",
+    "age": "Age",
+    "gender": "Gender",
+    "breed": "Breed",
+    "male": "Male",
+    "female": "Female",
+    "races": "Races",
+    "wins": "Wins",
+    "podiums": "Podiums",
+    "performanceStats": "Performance Statistics",
+    "totalRaces": "Total Races",
+    "winRate": "Win Rate",
+    "avgTime": "Average Time",
+    "bestTime": "Best Time",
+    "raceHistory": "Race History",
+    "noHistory": "No race history available.",
+    "at": "at"
+  },
+  "stats": {
+    "title": "Statistics & Leaderboards",
+    "subtitle": "Performance insights and community rankings",
+    "totalRaces": "Total Races",
+    "activeTeams": "Active Teams",
+    "totalResults": "Total Results",
+    "totalDistance": "Total Distance",
+    "topByWins": "Top Teams by Wins",
+    "topByPodiums": "Top Teams by Podiums",
+    "popularBreeds": "Popular Dog Breeds",
+    "raceStats": "Race Statistics",
+    "avgDistance": "Average Race Distance",
+    "avgElevation": "Average Elevation Gain",
+    "courseTypes": "Course Types"
+  }
+}

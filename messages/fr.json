@@ -1,0 +1,85 @@
+{
+  "common": {
+    "backToHome": "← Retour à l'accueil",
+    "backToRaces": "← Retour aux courses",
+    "backToTeams": "← Retour aux équipes",
+    "viewResults": "Voir les résultats →",
+    "viewProfile": "Voir le profil →"
+  },
+  "nav": {
+    "home": "Accueil",
+    "teams": "Équipes",
+    "races": "Courses",
+    "stats": "Statistiques"
+  },
+  "home": {
+    "title": "Canitrack",
+    "subtitle": "Suivez vos performances en canicross et comparez-vous aux autres équipes",
+    "viewTeams": "Voir les équipes",
+    "statistics": "Statistiques",
+    "totalRaces": "Total de courses",
+    "totalParticipants": "Total de participants",
+    "totalDistance": "Distance totale",
+    "upcomingRaces": "Courses à venir et récentes",
+    "participants": "participants",
+    "distance": "Distance",
+    "elevation": "Dénivelé",
+    "weather": "Météo",
+    "date": "Date"
+  },
+  "races": {
+    "title": "Détails de la course",
+    "raceResults": "Résultats de la course",
+    "position": "Position",
+    "team": "Équipe",
+    "dog": "Chien",
+    "time": "Temps",
+    "pace": "Allure (min/km)",
+    "noResults": "Aucun résultat disponible pour le moment.",
+    "notes": "Notes",
+    "years": "ans",
+    "courseTypes": {
+      "trail": "trail",
+      "road": "route",
+      "mixed": "mixte"
+    }
+  },
+  "teams": {
+    "title": "Équipes de canicross",
+    "subtitle": "Parcourir toutes les équipes humain-chien inscrites",
+    "teamProfile": "Profil de l'équipe",
+    "runner": "Coureur",
+    "caninePartner": "Partenaire canin",
+    "age": "Âge",
+    "gender": "Sexe",
+    "breed": "Race",
+    "male": "Homme",
+    "female": "Femme",
+    "races": "Courses",
+    "wins": "Victoires",
+    "podiums": "Podiums",
+    "performanceStats": "Statistiques de performance",
+    "totalRaces": "Total de courses",
+    "winRate": "Taux de victoire",
+    "avgTime": "Temps moyen",
+    "bestTime": "Meilleur temps",
+    "raceHistory": "Historique des courses",
+    "noHistory": "Aucun historique de course disponible.",
+    "at": "à"
+  },
+  "stats": {
+    "title": "Statistiques & Classements",
+    "subtitle": "Analyses de performance et classements de la communauté",
+    "totalRaces": "Total de courses",
+    "activeTeams": "Équipes actives",
+    "totalResults": "Total de résultats",
+    "totalDistance": "Distance totale",
+    "topByWins": "Top équipes par victoires",
+    "topByPodiums": "Top équipes par podiums",
+    "popularBreeds": "Races de chiens populaires",
+    "raceStats": "Statistiques des courses",
+    "avgDistance": "Distance moyenne des courses",
+    "avgElevation": "Dénivelé moyen",
+    "courseTypes": "Types de parcours"
+  }
+}
