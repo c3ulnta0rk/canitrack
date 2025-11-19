@@ -1,13 +1,17 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { getLocale } from "next-intl/server";
 import { getRaceWithResults, formatTime } from "@/lib/db/database";
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }
 
 export default async function RacePage({ params }: PageProps) {
   const { id } = await params;
+  const locale = await getLocale();
+  const t = useTranslations();
   const race = getRaceWithResults(id);
 
   if (!race) {
@@ -15,7 +19,7 @@ export default async function RacePage({ params }: PageProps) {
   }
 
   const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat("en-US", {
+    return new Intl.DateTimeFormat(locale, {
       year: "numeric",
       month: "long",
       day: "numeric",
@@ -56,7 +60,7 @@ export default async function RacePage({ params }: PageProps) {
           href="/"
           className="mb-6 inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
         >
-          ← Back to Races
+          {t('common.backToHome')}
         </Link>
 
         {/* Race Header */}
@@ -73,7 +77,7 @@ export default async function RacePage({ params }: PageProps) {
             <span
               className={`rounded-full px-4 py-2 text-lg font-semibold ${getCourseTypeColor(race.courseType)}`}
             >
-              {race.courseType}
+              {t(`races.courseTypes.${race.courseType}`)}
             </span>
           </div>
 
@@ -87,7 +91,7 @@ export default async function RacePage({ params }: PageProps) {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             <div className="rounded-lg bg-blue-50 dark:bg-gray-700 p-4">
               <div className="text-sm text-gray-600 dark:text-gray-400">
-                📅 Date
+                📅 {t('home.date')}
               </div>
               <div className="text-lg font-semibold text-gray-900 dark:text-white">
                 {formatDate(race.date)}
@@ -95,7 +99,7 @@ export default async function RacePage({ params }: PageProps) {
             </div>
             <div className="rounded-lg bg-green-50 dark:bg-gray-700 p-4">
               <div className="text-sm text-gray-600 dark:text-gray-400">
-                📏 Distance
+                📏 {t('home.distance')}
               </div>
               <div className="text-lg font-semibold text-gray-900 dark:text-white">
                 {race.distance}km
@@ -104,7 +108,7 @@ export default async function RacePage({ params }: PageProps) {
             {race.elevationGain && (
               <div className="rounded-lg bg-orange-50 dark:bg-gray-700 p-4">
                 <div className="text-sm text-gray-600 dark:text-gray-400">
-                  ⛰️ Elevation
+                  ⛰️ {t('home.elevation')}
                 </div>
                 <div className="text-lg font-semibold text-gray-900 dark:text-white">
                   {race.elevationGain}m
@@ -114,7 +118,7 @@ export default async function RacePage({ params }: PageProps) {
             {race.weather && (
               <div className="rounded-lg bg-yellow-50 dark:bg-gray-700 p-4">
                 <div className="text-sm text-gray-600 dark:text-gray-400">
-                  ☀️ Weather
+                  ☀️ {t('home.weather')}
                 </div>
                 <div className="text-lg font-semibold text-gray-900 dark:text-white">
                   {race.weather}
@@ -130,12 +134,12 @@ export default async function RacePage({ params }: PageProps) {
         {/* Results */}
         <div className="rounded-xl bg-white dark:bg-gray-800 p-8 shadow-lg">
           <h2 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-            Race Results
+            {t('races.raceResults')}
           </h2>
 
           {race.results.length === 0 ? (
             <p className="text-gray-600 dark:text-gray-400">
-              No results available yet.
+              {t('races.noResults')}
             </p>
           ) : (
             <div className="overflow-x-auto">
@@ -143,19 +147,19 @@ export default async function RacePage({ params }: PageProps) {
                 <thead>
                   <tr className="border-b-2 border-gray-200 dark:border-gray-700">
                     <th className="pb-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-400">
-                      Position
+                      {t('races.position')}
                     </th>
                     <th className="pb-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-400">
-                      Team
+                      {t('races.team')}
                     </th>
                     <th className="pb-4 text-left text-sm font-semibold text-gray-600 dark:text-gray-400">
-                      Dog
+                      {t('races.dog')}
                     </th>
                     <th className="pb-4 text-right text-sm font-semibold text-gray-600 dark:text-gray-400">
-                      Time
+                      {t('races.time')}
                     </th>
                     <th className="pb-4 text-right text-sm font-semibold text-gray-600 dark:text-gray-400">
-                      Pace (min/km)
+                      {t('races.pace')}
                     </th>
                   </tr>
                 </thead>
@@ -186,7 +190,7 @@ export default async function RacePage({ params }: PageProps) {
                             </div>
                             <div className="text-sm text-gray-600 dark:text-gray-400">
                               {result.team.human.gender === "M" ? "👨" : "👩"}{" "}
-                              {result.team.human.age} years
+                              {result.team.human.age} {t('races.years')}
                             </div>
                           </Link>
                         </td>
@@ -219,7 +223,7 @@ export default async function RacePage({ params }: PageProps) {
           {race.results.some(r => r.notes) && (
             <div className="mt-6">
               <h3 className="mb-3 text-lg font-semibold text-gray-900 dark:text-white">
-                Notes
+                {t('races.notes')}
               </h3>
               {race.results
                 .filter(r => r.notes)

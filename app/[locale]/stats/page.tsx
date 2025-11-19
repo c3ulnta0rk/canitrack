@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import {
   getRaces,
   getTeamsWithDetails,
@@ -8,6 +9,7 @@ import {
 } from "@/lib/db/database";
 
 export default function StatsPage() {
+  const t = useTranslations();
   const races = getRaces();
   const teams = getTeamsWithDetails();
   const results = getResults();
@@ -73,13 +75,13 @@ export default function StatsPage() {
             href="/"
             className="mb-4 inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
           >
-            ← Back to Home
+            {t('common.backToHome')}
           </Link>
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-            📊 Statistics & Leaderboards
+            {t('stats.title')}
           </h1>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
-            Performance insights and community rankings
+            {t('stats.subtitle')}
           </p>
         </div>
 
@@ -89,14 +91,14 @@ export default function StatsPage() {
             <div className="text-4xl font-bold text-blue-600 dark:text-blue-400 mb-2">
               {totalRaces}
             </div>
-            <div className="text-gray-600 dark:text-gray-300">Total Races</div>
+            <div className="text-gray-600 dark:text-gray-300">{t('stats.totalRaces')}</div>
           </div>
 
           <div className="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-lg text-center">
             <div className="text-4xl font-bold text-green-600 dark:text-green-400 mb-2">
               {totalTeams}
             </div>
-            <div className="text-gray-600 dark:text-gray-300">Active Teams</div>
+            <div className="text-gray-600 dark:text-gray-300">{t('stats.activeTeams')}</div>
           </div>
 
           <div className="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-lg text-center">
@@ -104,7 +106,7 @@ export default function StatsPage() {
               {totalResults}
             </div>
             <div className="text-gray-600 dark:text-gray-300">
-              Total Results
+              {t('stats.totalResults')}
             </div>
           </div>
 
@@ -113,7 +115,7 @@ export default function StatsPage() {
               {Math.round(totalDistance)}km
             </div>
             <div className="text-gray-600 dark:text-gray-300">
-              Total Distance
+              {t('stats.totalDistance')}
             </div>
           </div>
         </div>
@@ -122,7 +124,7 @@ export default function StatsPage() {
           {/* Top Teams by Wins */}
           <div className="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-lg">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              🏆 Top Teams by Wins
+              {t('stats.topByWins')}
             </h2>
             <div className="space-y-4">
               {topByWins.map((item, index) => (
@@ -151,7 +153,7 @@ export default function StatsPage() {
                         {item.stats?.wins}
                       </div>
                       <div className="text-xs text-gray-600 dark:text-gray-400">
-                        wins
+                        {t('teams.wins')}
                       </div>
                     </div>
                   </div>
@@ -163,7 +165,7 @@ export default function StatsPage() {
           {/* Top Teams by Podiums */}
           <div className="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-lg">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              🥇 Top Teams by Podiums
+              {t('stats.topByPodiums')}
             </h2>
             <div className="space-y-4">
               {topByPodiums.map((item, index) => (
@@ -192,7 +194,7 @@ export default function StatsPage() {
                         {item.stats?.podiums}
                       </div>
                       <div className="text-xs text-gray-600 dark:text-gray-400">
-                        podiums
+                        {t('teams.podiums')}
                       </div>
                     </div>
                   </div>
@@ -206,7 +208,7 @@ export default function StatsPage() {
           {/* Popular Dog Breeds */}
           <div className="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-lg">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              🐕 Popular Dog Breeds
+              {t('stats.popularBreeds')}
             </h2>
             <div className="space-y-3">
               {topBreeds.map(([breed, count], index) => (
@@ -233,12 +235,12 @@ export default function StatsPage() {
           {/* Race Statistics */}
           <div className="rounded-xl bg-white dark:bg-gray-800 p-6 shadow-lg">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              📏 Race Statistics
+              {t('stats.raceStats')}
             </h2>
             <div className="space-y-4">
               <div className="p-4 rounded-lg bg-blue-50 dark:bg-gray-700">
                 <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  Average Race Distance
+                  {t('stats.avgDistance')}
                 </div>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {avgRaceDistance.toFixed(1)}km
@@ -247,7 +249,7 @@ export default function StatsPage() {
 
               <div className="p-4 rounded-lg bg-green-50 dark:bg-gray-700">
                 <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  Average Elevation Gain
+                  {t('stats.avgElevation')}
                 </div>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white">
                   {avgElevation.toFixed(0)}m
@@ -256,16 +258,16 @@ export default function StatsPage() {
 
               <div className="p-4 rounded-lg bg-purple-50 dark:bg-gray-700">
                 <div className="text-sm text-gray-600 dark:text-gray-400 mb-2">
-                  Course Types
+                  {t('stats.courseTypes')}
                 </div>
                 <div className="space-y-2">
                   {Object.entries(courseTypeCounts).map(([type, count]) => (
                     <div key={type} className="flex items-center justify-between">
                       <span className="capitalize text-gray-900 dark:text-white">
-                        {type}
+                        {t(`races.courseTypes.${type}`)}
                       </span>
                       <span className="font-bold text-gray-900 dark:text-white">
-                        {count} races
+                        {count} {t('teams.races').toLowerCase()}
                       </span>
                     </div>
                   ))}

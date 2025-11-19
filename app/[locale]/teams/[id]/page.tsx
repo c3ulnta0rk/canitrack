@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { useTranslations } from "next-intl";
+import { getLocale } from "next-intl/server";
 import {
   getTeamWithDetails,
   getResultsByTeam,
@@ -8,11 +10,13 @@ import {
 } from "@/lib/db/database";
 
 interface PageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{ id: string; locale: string }>;
 }
 
 export default async function TeamPage({ params }: PageProps) {
   const { id } = await params;
+  const locale = await getLocale();
+  const t = useTranslations();
   const team = getTeamWithDetails(id);
 
   if (!team) {
@@ -23,7 +27,7 @@ export default async function TeamPage({ params }: PageProps) {
   const stats = getTeamStats(id);
 
   const formatDate = (date: Date) => {
-    return new Intl.DateTimeFormat("en-US", {
+    return new Intl.DateTimeFormat(locale, {
       year: "numeric",
       month: "short",
       day: "numeric",
@@ -55,13 +59,13 @@ export default async function TeamPage({ params }: PageProps) {
           href="/teams"
           className="mb-6 inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
         >
-          ← Back to Teams
+          {t('common.backToTeams')}
         </Link>
 
         {/* Team Header */}
         <div className="mb-8 rounded-xl bg-white dark:bg-gray-800 p-8 shadow-lg">
           <h1 className="mb-6 text-4xl font-bold text-gray-900 dark:text-white">
-            Team Profile
+            {t('teams.teamProfile')}
           </h1>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -75,22 +79,22 @@ export default async function TeamPage({ params }: PageProps) {
                   <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
                     {team.human.firstName} {team.human.lastName}
                   </h2>
-                  <p className="text-gray-600 dark:text-gray-400">Runner</p>
+                  <p className="text-gray-600 dark:text-gray-400">{t('teams.runner')}</p>
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Age:</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('teams.age')}:</span>
                   <span className="font-semibold text-gray-900 dark:text-white">
-                    {team.human.age} years
+                    {team.human.age} {t('races.years')}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">
-                    Gender:
+                    {t('teams.gender')}:
                   </span>
                   <span className="font-semibold text-gray-900 dark:text-white">
-                    {team.human.gender === "M" ? "Male" : "Female"}
+                    {team.human.gender === "M" ? t('teams.male') : t('teams.female')}
                   </span>
                 </div>
               </div>
@@ -105,31 +109,31 @@ export default async function TeamPage({ params }: PageProps) {
                     {team.dog.name}
                   </h2>
                   <p className="text-gray-600 dark:text-gray-400">
-                    Canine Partner
+                    {t('teams.caninePartner')}
                   </p>
                 </div>
               </div>
               <div className="space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">
-                    Breed:
+                    {t('teams.breed')}:
                   </span>
                   <span className="font-semibold text-gray-900 dark:text-white">
                     {team.dog.breed}
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-600 dark:text-gray-400">Age:</span>
+                  <span className="text-gray-600 dark:text-gray-400">{t('teams.age')}:</span>
                   <span className="font-semibold text-gray-900 dark:text-white">
-                    {team.dog.age} years
+                    {team.dog.age} {t('races.years')}
                   </span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600 dark:text-gray-400">
-                    Gender:
+                    {t('teams.gender')}:
                   </span>
                   <span className="font-semibold text-gray-900 dark:text-white">
-                    {team.dog.gender === "M" ? "Male" : "Female"}
+                    {team.dog.gender === "M" ? t('teams.male') : t('teams.female')}
                   </span>
                 </div>
               </div>
@@ -141,7 +145,7 @@ export default async function TeamPage({ params }: PageProps) {
         {stats && (
           <div className="mb-8 rounded-xl bg-white dark:bg-gray-800 p-8 shadow-lg">
             <h2 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-              Performance Statistics
+              {t('teams.performanceStats')}
             </h2>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -150,7 +154,7 @@ export default async function TeamPage({ params }: PageProps) {
                   {stats.totalRaces}
                 </div>
                 <div className="text-gray-600 dark:text-gray-400">
-                  Total Races
+                  {t('teams.totalRaces')}
                 </div>
               </div>
 
@@ -159,7 +163,7 @@ export default async function TeamPage({ params }: PageProps) {
                   {stats.wins}
                 </div>
                 <div className="text-gray-600 dark:text-gray-400">
-                  🥇 Wins
+                  🥇 {t('teams.wins')}
                 </div>
               </div>
 
@@ -168,7 +172,7 @@ export default async function TeamPage({ params }: PageProps) {
                   {stats.podiums}
                 </div>
                 <div className="text-gray-600 dark:text-gray-400">
-                  🏆 Podiums
+                  🏆 {t('teams.podiums')}
                 </div>
               </div>
 
@@ -177,7 +181,7 @@ export default async function TeamPage({ params }: PageProps) {
                   {((stats.wins / stats.totalRaces) * 100).toFixed(0)}%
                 </div>
                 <div className="text-gray-600 dark:text-gray-400">
-                  Win Rate
+                  {t('teams.winRate')}
                 </div>
               </div>
             </div>
@@ -185,7 +189,7 @@ export default async function TeamPage({ params }: PageProps) {
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               <div className="rounded-lg bg-orange-50 dark:bg-gray-700 p-6">
                 <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  Average Time
+                  {t('teams.avgTime')}
                 </div>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white font-mono">
                   {stats.avgTimeFormatted}
@@ -194,14 +198,14 @@ export default async function TeamPage({ params }: PageProps) {
 
               <div className="rounded-lg bg-red-50 dark:bg-gray-700 p-6">
                 <div className="text-sm text-gray-600 dark:text-gray-400 mb-1">
-                  Best Time
+                  {t('teams.bestTime')}
                 </div>
                 <div className="text-2xl font-bold text-gray-900 dark:text-white font-mono">
                   {stats.bestTimeFormatted}
                 </div>
                 {stats.bestRace && (
                   <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                    at {stats.bestRace.name}
+                    {t('teams.at')} {stats.bestRace.name}
                   </div>
                 )}
               </div>
@@ -212,12 +216,12 @@ export default async function TeamPage({ params }: PageProps) {
         {/* Race History */}
         <div className="rounded-xl bg-white dark:bg-gray-800 p-8 shadow-lg">
           <h2 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-            Race History
+            {t('teams.raceHistory')}
           </h2>
 
           {results.length === 0 ? (
             <p className="text-gray-600 dark:text-gray-400">
-              No race history available.
+              {t('teams.noHistory')}
             </p>
           ) : (
             <div className="space-y-4">
@@ -251,7 +255,7 @@ export default async function TeamPage({ params }: PageProps) {
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div>
                           <div className="text-sm text-gray-600 dark:text-gray-400">
-                            Time
+                            {t('races.time')}
                           </div>
                           <div className="text-lg font-bold font-mono text-gray-900 dark:text-white">
                             {formatTime(result.timeSeconds)}
@@ -259,7 +263,7 @@ export default async function TeamPage({ params }: PageProps) {
                         </div>
                         <div>
                           <div className="text-sm text-gray-600 dark:text-gray-400">
-                            Pace
+                            {t('races.pace')}
                           </div>
                           <div className="text-lg font-bold font-mono text-gray-900 dark:text-white">
                             {paceMin}:{String(paceSec).padStart(2, "0")}/km
@@ -267,7 +271,7 @@ export default async function TeamPage({ params }: PageProps) {
                         </div>
                         <div>
                           <div className="text-sm text-gray-600 dark:text-gray-400">
-                            Distance
+                            {t('home.distance')}
                           </div>
                           <div className="text-lg font-bold text-gray-900 dark:text-white">
                             {result.race.distance}km
@@ -275,10 +279,10 @@ export default async function TeamPage({ params }: PageProps) {
                         </div>
                         <div>
                           <div className="text-sm text-gray-600 dark:text-gray-400">
-                            Course
+                            {t('races.courseTypes.'+result.race.courseType)}
                           </div>
                           <div className="text-lg font-bold text-gray-900 dark:text-white capitalize">
-                            {result.race.courseType}
+                            {t(`races.courseTypes.${result.race.courseType}`)}
                           </div>
                         </div>
                       </div>

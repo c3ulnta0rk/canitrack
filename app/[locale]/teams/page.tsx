@@ -1,7 +1,9 @@
 import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { getTeamsWithDetails, getTeamStats } from "@/lib/db/database";
 
 export default function TeamsPage() {
+  const t = useTranslations();
   const teams = getTeamsWithDetails();
 
   return (
@@ -13,13 +15,13 @@ export default function TeamsPage() {
             href="/"
             className="mb-4 inline-flex items-center text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
           >
-            ← Back to Home
+            {t('common.backToHome')}
           </Link>
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
-            Canicross Teams
+            {t('teams.title')}
           </h1>
           <p className="mt-2 text-gray-600 dark:text-gray-400">
-            Browse all registered human-dog teams
+            {t('teams.subtitle')}
           </p>
         </div>
 
@@ -42,7 +44,7 @@ export default function TeamsPage() {
                           {team.human.firstName} {team.human.lastName}
                         </h3>
                         <p className="text-sm text-gray-600 dark:text-gray-400">
-                          {team.human.age} years • {team.human.gender === "M" ? "Male" : "Female"}
+                          {team.human.age} {t('races.years')} • {team.human.gender === "M" ? t('teams.male') : t('teams.female')}
                         </p>
                       </div>
                     </div>
@@ -60,7 +62,7 @@ export default function TeamsPage() {
                           {team.dog.breed}
                         </p>
                         <p className="text-xs text-gray-500 dark:text-gray-500">
-                          {team.dog.age} years • {team.dog.gender === "M" ? "Male" : "Female"}
+                          {team.dog.age} {t('races.years')} • {team.dog.gender === "M" ? t('teams.male') : t('teams.female')}
                         </p>
                       </div>
                     </div>
@@ -75,7 +77,7 @@ export default function TeamsPage() {
                             {stats.totalRaces}
                           </div>
                           <div className="text-xs text-gray-600 dark:text-gray-400">
-                            Races
+                            {t('teams.races')}
                           </div>
                         </div>
                         <div>
@@ -83,7 +85,7 @@ export default function TeamsPage() {
                             {stats.wins}
                           </div>
                           <div className="text-xs text-gray-600 dark:text-gray-400">
-                            Wins
+                            {t('teams.wins')}
                           </div>
                         </div>
                         <div>
@@ -91,7 +93,7 @@ export default function TeamsPage() {
                             {stats.podiums}
                           </div>
                           <div className="text-xs text-gray-600 dark:text-gray-400">
-                            Podiums
+                            {t('teams.podiums')}
                           </div>
                         </div>
                       </div>
@@ -99,7 +101,7 @@ export default function TeamsPage() {
                   )}
 
                   <div className="mt-4 text-center text-blue-600 dark:text-blue-400 font-semibold group-hover:underline">
-                    View Profile →
+                    {t('common.viewProfile')}
                   </div>
                 </div>
               </Link>
